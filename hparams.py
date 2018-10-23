@@ -104,7 +104,7 @@ hparams = tf.contrib.training.HParams(
 	#Limits
 	min_level_db = -100,
 	ref_level_db = 20,
-	fmin = 55, #Set this to 55 if your speaker is male! if female, 95 should help taking off noise. (To test depending on dataset. Pitch info: male~[65, 260], female~[100, 525])
+	fmin = 95, #Set this to 55 if your speaker is male! if female, 95 should help taking off noise. (To test depending on dataset. Pitch info: male~[65, 260], female~[100, 525])
 	fmax = 7600, #To be increased/reduced depending on data.
 
 	#Griffin Lim
@@ -193,7 +193,7 @@ hparams = tf.contrib.training.HParams(
 	upsample_activation = 'LeakyRelu', #Activation function used during upsampling. Can be ('LeakyRelu', 'Relu' or None)
 	upsample_scales = [5, 5, 11], #prod(upsample_scales) should be equal to hop_size
 	freq_axis_kernel_size = 3, #Only used for 2D upsampling. This is the number of requency bands that are spanned at a time for each frame.
-	leaky_alpha = 0.4, #slope of the negative portion of LeakyRelu (LeakyRelu: y=x if x>0 else y=alpha * x)
+	leaky_alpha = 0.3, #slope of the negative portion of LeakyRelu (LeakyRelu: y=x if x>0 else y=alpha * x)
 
 	#global conditioning
 	gin_channels = -1, #Set this to -1 to disable global conditioning, Only used for multi speaker dataset. It defines the depth of the embeddings (Recommended: 16)
@@ -217,7 +217,7 @@ hparams = tf.contrib.training.HParams(
 	tacotron_swap_with_cpu = False, #Whether to use cpu as support to gpu for decoder computation (Not recommended: may cause major slowdowns! Only use when critical!)
 
 	#train/test split ratios, mini-batches sizes
-	tacotron_batch_size = 32, #number of training samples on each training steps
+	tacotron_batch_size = 20, #number of training samples on each training steps
 	#Tacotron Batch synthesis supports ~16x the training batch size (no gradients during testing). 
 	#Training Tacotron with unmasked paddings makes it aware of them, which makes synthesis times different from training. We thus recommend masking the encoder.
 	tacotron_synthesis_batch_size = 1, #DO NOT MAKE THIS BIGGER THAN 1 IF YOU DIDN'T TRAIN TACOTRON WITH "mask_encoder=True"!!
